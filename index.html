@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <link rel="stylesheet" href="style.css" />
+        <link
+            href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap"
+            rel="stylesheet "
+        />
+        <title>Document</title>
+    </head>
+    <body>
+        <!-- This is 15 lines vs 64 lines in markup, and also very easy to update. I just affected the text - we can do this with every part of the component -->
+        <cards-test
+            text="Prepare for the Unexpected"
+            link="https://www.coloniallife.com/-/media/ContentHub/Employers/Overview-101828"
+        >
+            <h1 slot="card-heading">This is a custom heading</h1>
+            <p slot="card-content">
+                This is also a custom paragraph...wow this is easy!
+            </p>
+            <span slot="card-action-text">This is using ::slotted styles</span>
+            <img
+                slot="card-action-icon"
+                src="https://www.coloniallife.com/-/media/CL/campaign/UofSC/football2019/pdf.ashx"
+                alt="Download PDF"
+            />
+        </cards-test>
+        <h1>I don't affect the web component</h1>
+
+        <script src="test.js"></script>
+    </body>
+</html>
