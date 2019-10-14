@@ -126,32 +126,3 @@ class CardsTest extends HTMLElement {
     }
 }
 customElements.define("cards-test", CardsTest);
-
-/** Inline styling
-  * h2 {
-        align-content: center;
-        align-items: center;
-        display: flex;
-        font-size: 1.9rem;
-        justify-content: center;
-        margin-left: auto;
-        margin-right: auto;
-        margin-top: 60px;
-        width: 100%;
-    }
-    
-    h2:before,
-    h2:after {
-        border-top: 1px solid white;
-        content: "";
-        flex-basis: 3.8%;
-    }
-    
-    h2:before {
-        margin-right: 0.8rem;
-    }
-    
-    h2:after {
-        margin-left: 0.8rem;
-    }
-  */
