@@ -1,9 +1,9 @@
-class Stepper extends HTMLElement {
+export default class Stepper extends HTMLElement {
     constructor() {
         super();
-        const shadowRoot = this.attachShadow({ mode: "open" });
+        const shadowRoot = this.attachShadow({ mode: 'open' });
 
-        this.step = this.getAttribute("step");
+        this.step = this.getAttribute('step');
 
         this.shadowRoot.innerHTML = `
             <style>
@@ -108,10 +108,13 @@ class Stepper extends HTMLElement {
     connectedCallback() {}
 
     static get observedAttributes() {
-        return ["step"];
+        return ['step'];
     }
-    attributeChangeCallback() {
-        console.log("hey");
+    // attributeChangeCallback() {
+    //     console.log('hey');
+    // }
+    attributeChangedCallback(name, oldVal, newVal) {
+        console.table({ name, oldVal, newVal });
     }
 
     adoptedCallback() {}
@@ -119,4 +122,4 @@ class Stepper extends HTMLElement {
     disconnectedCallBack() {}
 }
 
-customElements.define("modal-stepper", Stepper);
+customElements.define('modal-stepper', Stepper);

@@ -2,15 +2,19 @@
  * @Attributes game, stepper (requires game set to true)
  * @Slots content-heading, step-1-text, step-2-text, step-3-text, game-content, basic-content
  */
-import "../components/stepper";
+// import './stepper';
+import * as stepper from './stepper.js'; // changed the import to work with es6 modules
 
-class ModalMain extends HTMLElement {
+/**
+ * added the 'export default' to this
+ */
+export default class ModalMain extends HTMLElement {
     constructor() {
         super();
-        const shadowRoot = this.attachShadow({ mode: "open" });
+        const shadowRoot = this.attachShadow({ mode: 'open' });
 
-        this.game = this.getAttribute("game");
-        this.stepper = this.getAttribute("stepper");
+        this.game = this.getAttribute('game');
+        this.stepper = this.getAttribute('stepper');
 
         this.shadowRoot.innerHTML = `
         <style>
@@ -75,11 +79,11 @@ class ModalMain extends HTMLElement {
                             <h2 class="modal__content-heading">Default Text</h2>
                         </slot>
                         ${(() => {
-                            if (this.game === "true") {
+                            if (this.game === 'true') {
                                 return `<div class="modal__game">
                                     <div class="modal__game-content">
                                         ${(() => {
-                                            if (this.stepper === "enabled") {
+                                            if (this.stepper === 'enabled') {
                                                 return `
                                                     <modal-stepper step="0" data-is-visible="false">
                                                         <span slot="step-1-text">Guess</span>
@@ -107,7 +111,7 @@ class ModalMain extends HTMLElement {
                                         </div> 
                                     </div>
                                 </div>`;
-                            } else if (this.game === "false") {
+                            } else if (this.game === 'false') {
                                 return `<div class="modal__text">
                                     <slot name="basic-content">Invalid slot name. Please use basic-content in the slot name.</slot>
                                 `;
@@ -118,7 +122,7 @@ class ModalMain extends HTMLElement {
                         <div class="modal__actions">
                             <button class="modal__button" step="0" type="button" aria-label="">
                                 ${(() => {
-                                    if (this.game === "true") return `Play Now`;
+                                    if (this.game === 'true') return `Play Now`;
                                     else return `Next`;
                                 })()}
                             </button>
@@ -130,40 +134,40 @@ class ModalMain extends HTMLElement {
     }
 
     connectedCallback() {
-        let el = this.shadowRoot.querySelectorAll(".step");
+        let el = this.shadowRoot.querySelectorAll('.step');
         let stepper, stepperStep;
 
-        let button = this.shadowRoot.querySelector(".modal__button");
-        if (this.shadowRoot.querySelector("modal-stepper") != undefined) {
-            stepper = this.shadowRoot.querySelector("modal-stepper");
+        let button = this.shadowRoot.querySelector('.modal__button');
+        if (this.shadowRoot.querySelector('modal-stepper') != undefined) {
+            stepper = this.shadowRoot.querySelector('modal-stepper');
         }
 
-        button.addEventListener("click", function() {
-            let step = button.getAttribute("step");
-            if (stepper != undefined) stepperStep = stepper.getAttribute("step");
+        button.addEventListener('click', function() {
+            let step = button.getAttribute('step');
+            if (stepper != undefined) stepperStep = stepper.getAttribute('step');
 
             _showHide(step);
 
-            if (step <= el.length - 2) button.setAttribute("step", ++step);
-            if (stepper != undefined && stepperStep <= el.length - 2) stepper.setAttribute("step", ++stepperStep);
-            if (step == "1" && this.game === "true") button.innerHTML = "Next";
-            else if (step == "3") button.setAttribute("data-is-visible", "false");
+            if (step <= el.length - 2) button.setAttribute('step', ++step);
+            if (stepper != undefined && stepperStep <= el.length - 2) stepper.setAttribute('step', ++stepperStep);
+            if (step == '1' && this.game === 'true') button.innerHTML = 'Next';
+            else if (step == '3') button.setAttribute('data-is-visible', 'false');
         });
 
         function _showHide(step) {
             switch (step) {
-                case "0":
-                    el[0].setAttribute("data-is-visible", "false");
-                    el[1].setAttribute("data-is-visible", "true");
-                    if (stepper != undefined) stepper.setAttribute("data-is-visible", "true");
+                case '0':
+                    el[0].setAttribute('data-is-visible', 'false');
+                    el[1].setAttribute('data-is-visible', 'true');
+                    if (stepper != undefined) stepper.setAttribute('data-is-visible', 'true');
                     break;
-                case "1":
-                    el[1].setAttribute("data-is-visible", "false");
-                    el[2].setAttribute("data-is-visible", "true");
+                case '1':
+                    el[1].setAttribute('data-is-visible', 'false');
+                    el[2].setAttribute('data-is-visible', 'true');
                     break;
-                case "2":
-                    el[2].setAttribute("data-is-visible", "false");
-                    el[3].setAttribute("data-is-visible", "true");
+                case '2':
+                    el[2].setAttribute('data-is-visible', 'false');
+                    el[3].setAttribute('data-is-visible', 'true');
                     break;
                 default:
                     break;
@@ -171,11 +175,21 @@ class ModalMain extends HTMLElement {
         }
     }
 
-    attributeChangeCallback() {}
+    static get observedAttributes() {
+        return ['game', 'stepper'];
+    }
+    attributeChangedCallback(name, oldVal, newVal) {
+        console.table({ name, oldVal, newVal });
+    }
+    // attributeChangeCallback() {
+    //     console.log('hey');
+    // }
+
+    // attributeChangeCallback() {}
 
     adoptedCallback() {}
 
     disconnectedCallBack() {}
 }
 
-customElements.define("modal-main", ModalMain);
+customElements.define('modal-main', ModalMain);
