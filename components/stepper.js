@@ -1,9 +1,11 @@
 export default class Stepper extends HTMLElement {
     constructor() {
         super();
-        const shadowRoot = this.attachShadow({ mode: 'open' });
+        const shadowRoot = this.attachShadow({ mode: "open" });
 
-        this.step = this.getAttribute('step');
+        this.step = this.getAttribute("step");
+        const backgroundImage =
+            "url('http://www.coloniallife.com/-/media/CL/campaign/UofSC/football2019/grey-dot.ashx')";
 
         this.shadowRoot.innerHTML = `
             <style>
@@ -29,7 +31,7 @@ export default class Stepper extends HTMLElement {
                 .stepper__icon {
                     align-content: center;
                     align-items: center;
-                    background-image: url("http://www.coloniallife.com/-/media/CL/campaign/UofSC/football2019/grey-dot.ashx");
+                    background-image: ${backgroundImage};
                     background-position: center;
                     background-size: contain;
                     background-repeat: no-repeat;
@@ -58,16 +60,11 @@ export default class Stepper extends HTMLElement {
 
                 <div class="stepper__step">
                     <slot name="step-1-text">
-                        <span
-                            id="step-1"
-                            class="stepper__step-text"
+                        <span class="stepper__step-text"
                             >Default Text</span
                         >
                     </slot>
-                    <div
-                        id="icon-step-1"
-                        class="stepper__icon"
-                    >
+                    <div class="stepper__icon" step="1">
                         <span
                             class="stepper__bar"
                         ></span>
@@ -80,7 +77,7 @@ export default class Stepper extends HTMLElement {
                             >Default Text</span
                         >
                     </slot>
-                    <div class="stepper__icon">
+                    <div class="stepper__icon" step="2">
                         <span
                             class="stepper__bar"
                         ></span>
@@ -94,7 +91,7 @@ export default class Stepper extends HTMLElement {
                         >
                     </slot>
                     <div
-                        class="stepper__icon stepper__icon--last"
+                        class="stepper__icon stepper__icon--last" step="3"
                     >
                         <span
                             class="stepper__bar stepper__bar--last"
@@ -108,13 +105,26 @@ export default class Stepper extends HTMLElement {
     connectedCallback() {}
 
     static get observedAttributes() {
-        return ['step'];
+        return ["step"];
     }
-    // attributeChangeCallback() {
-    //     console.log('hey');
-    // }
+
     attributeChangedCallback(name, oldVal, newVal) {
-        console.table({ name, oldVal, newVal });
+        let icons = this.shadowRoot.querySelectorAll(".stepper__icon");
+
+        for (let i = 0; i < icons.length; i++) {
+            if (icons[i].getAttribute("step") == newVal) {
+                icons[i].style.backgroundImage =
+                    "url('http://www.coloniallife.com/-/media/CL/campaign/UofSC/football2019/blue-dot.ashx')";
+                // Game is complete so all checks
+                if (newVal == 3) {
+                    icons[2].style.backgroundImage =
+                        "url('http://www.coloniallife.com/-/media/CL/campaign/UofSC/football2019/check.ashx')";
+                }
+            } else if (icons[i].getAttribute("step") == oldVal) {
+                icons[i].style.backgroundImage =
+                    "url('http://www.coloniallife.com/-/media/CL/campaign/UofSC/football2019/check.ashx')";
+            }
+        }
     }
 
     adoptedCallback() {}
@@ -122,4 +132,4 @@ export default class Stepper extends HTMLElement {
     disconnectedCallBack() {}
 }
 
-customElements.define('modal-stepper', Stepper);
+customElements.define("modal-stepper", Stepper);
