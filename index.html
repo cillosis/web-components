@@ -6,36 +6,78 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
         <link rel="stylesheet" href="style.css" />
         <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet " />
-        <title>Document</title>
+        <title>Web Components Test</title>
+        <style>
+            .component-container {
+                width: 500px;
+                margin: 100px;
+                float: left;
+            }
+            hr {
+                margin: 20px 0px;
+            }
+        </style>
     </head>
     <body>
-        <div class="modal__wrapper">
-            <modal-main game="true" stepper="disabled">
-                <h2 slot="content-heading">Share Your Score</h2>
-                <div slot="game-content-step-0">
-                    <p>Colonial Life protects your future.</p>
-                    <p>
-                        <strong>Can you predict it? </strong>Guess the final score of this week's game and be entered to
-                        win a <span>$25</span> Amazon gift card.
-                    </p>
-                    <p>
-                        <a href="#" data-modal="rules">Click here to view the rules</a>
-                    </p>
-                </div>
-                <div slot="game-content-step-1">
-                    <p>Enter score in the boxes below</p>
-                </div>
-                <div slot="game-content-step-2">
-                    <p>Tweet to enter and win!</p>
-                    <p>(Limit: 1 entry per Twitter account per game)</p>
-                </div>
-                <div slot="game-content-step-3">
-                    <p>Thank you for playing!</p>
-                    <p>Go Gamecocks!</p>
-                </div>
-            </modal-main>
+        <div class="component-container">
+            <!--
+                DropDown Component
+
+                A generic configurable dropdown component. You pass configuration as attributes on
+                the element and use divs inside for the menu items. Menu items are also configurable
+                with attributes.
+
+                DropDown Options
+                ----------------
+                @param  id      The ID is REQUIRED and must be unique from other dropdowns
+                @param  label   The text you want displayed on the label
+                @param  icon    Toggle icon image source or "false". If empty, it will default to a chevron.
+                @param  trigger The trigger style: "hover" or "click". Click is default.
+
+                DropDown Item Options
+                ---------------------
+                @param  type    The type of menu item: "link" or "divider"
+                @param  href    If it is a link type, this is the target URL
+            -->
+            <drop-down id="drop1" label="Hover Here" trigger="hover" icon="">
+                <div type="link" href="#?item1">Item 1</div>
+                <div type="link" href="#?item2">Item 2</div>
+                <div type="link" href="#?item3">Item 3</div>
+                <div type="divider"></div>
+                <div type="link" href="#?item4">Item 4</div>
+            </drop-down>
+
+            <!-- Additional Content to test overflow -->
+            <hr />
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris eget finibus enim, et dapibus nisl.
+                Aenean id est mauris. Sed fringilla non lorem eu venenatis. Etiam sodales consectetur justo eu posuere.
+                Etiam ultrices condimentum dignissim. Praesent dolor dui, iaculis quis condimentum a, dignissim non
+                enim. Morbi ut eros vitae eros placerat vehicula. Maecenas a nisi nisl. Donec feugiat turpis nunc, nec
+                cursus nisl interdum non. Pellentesque lacus erat, tempus vel risus sed, interdum congue nibh. Class
+                aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
+            </p>
         </div>
-        <!-- I updated these to be es6 module format instead of normal scripts -->
-        <script src="./components/modal.js" type="module"></script>
+
+        <div class="component-container">
+            <drop-down id="drop2" label="Click Here" trigger="click" icon="https://via.placeholder.com/30">
+                <div type="link" href="#?item5">Item 5</div>
+                <div type="link" href="#?item5">Item 6</div>
+                <div type="link" href="#?item6">Item 7</div>
+                <div type="divider"></div>
+                <div type="link" href="#?item8">Item 8</div>
+            </drop-down>
+            <hr />
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris eget finibus enim, et dapibus nisl.
+                Aenean id est mauris. Sed fringilla non lorem eu venenatis. Etiam sodales consectetur justo eu posuere.
+                Etiam ultrices condimentum dignissim. Praesent dolor dui, iaculis quis condimentum a, dignissim non
+                enim. Morbi ut eros vitae eros placerat vehicula. Maecenas a nisi nisl. Donec feugiat turpis nunc, nec
+                cursus nisl interdum non. Pellentesque lacus erat, tempus vel risus sed, interdum congue nibh. Class
+                aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
+            </p>
+        </div>
+
+        <script src="./components/dropdown/dropdown.js" type="module"></script>
     </body>
 </html>
