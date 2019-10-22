@@ -1,2 +1,2 @@
 require('./components/dropdown/dropdown');
-console.log('loaded index');
+require('./components/ccpa/ccpa');
