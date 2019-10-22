@@ -64,7 +64,7 @@ const _DropDownTemplate = function (context) {
             }
             .ux-dropdown__toggle__icon {
                 display: inline-block;
-                width: 10%;
+                width: 30px; /* Fixed width image can rotate centered */
                 text-align: right;
                 color: ${options.colors.toggleText};
                 margin: 0.8rem;
@@ -334,7 +334,7 @@ class DropDown extends WebComponent {
         // Image source option
         if (typeof icon === 'string' && icon.length > 1) {
             this.setAttribute('icon', `
-                <img src="${icon}" alt="Toggle Dropdown" />
+                <img src="${icon}" alt="Toggle Dropdown" width="30px" />
             `);
             return;
         }
