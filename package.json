@@ -5,7 +5,8 @@
     "license": "MIT",
     "scripts": {
         "dev": "parcel index.html",
-        "build": "parcel build index.html"
+        "build": "parcel build index.html --public-url ./",
+        "deploy": "parcel build index.html --public-url ./ && git subtree push --force --prefix dist origin gh-pages"
     },
     "devDependencies": {
         "parcel-bundler": "^1.12.4"
