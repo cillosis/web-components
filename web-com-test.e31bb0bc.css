@@ -1,0 +1,10 @@
+.ux-dropdown {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 100%; }
+  .ux-dropdown .ux-dropdown__toggle {
+    background-color: deeppink !important; }
+
+
+/*# sourceMappingURL=/web-com-test.e31bb0bc.css.map */
